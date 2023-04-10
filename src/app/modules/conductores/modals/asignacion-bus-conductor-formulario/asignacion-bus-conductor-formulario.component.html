@@ -1,0 +1,20 @@
+<form class="example-form" [formGroup]="asignacionForm" (ngSubmit)="CrearAsignacionBusConductor()">
+    <mat-card>
+        <mat-card-title>Asignar bus</mat-card-title>
+        <mat-card-content>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Id Bus</mat-label>
+                <input matInput placeholder="Id Bus" formControlName="id" >
+                <div class="error-message" *ngIf="asignacionForm.controls.id.invalid && (asignacionForm.controls.id.dirty || asignacionForm.controls.id.touched)">
+                    Solo se permiten digitos.
+                  </div>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-footer>
+            <div class="example-button-row" style="margin: 2px">
+            <button mat-raised-button color="primary" [disabled]="!asignacionForm.valid" style="margin-right: 8px">Aceptar</button>
+            <a (click)="CerrarFormulario()" mat-raised-button color="accent" style="margin-right: 8px">Cancelar</a>
+            </div>
+        </mat-card-footer>
+    </mat-card>
+</form>

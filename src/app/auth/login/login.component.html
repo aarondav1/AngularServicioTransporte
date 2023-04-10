@@ -1,0 +1,27 @@
+<div class="limiter">
+  <div class="container">
+      <mat-card>
+        <mat-card-title>
+          <h1 class="text-center">Log in</h1>
+        </mat-card-title>
+        <mat-card-content>
+          <form class="form-row" [formGroup]="miFormulario" (ngSubmit)="login()">
+            <div class="form-group col-md-12">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+              </mat-form-field>
+            </div>
+            <div class="form-group col-md-12">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password">
+              </mat-form-field>
+            </div>
+            <button mat-raised-button class="col-md-12 full-width" color="primary" type="submit">Iniciar Sesión</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+  </div>
+</div>
+  

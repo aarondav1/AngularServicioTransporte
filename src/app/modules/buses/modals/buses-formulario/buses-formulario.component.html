@@ -1,0 +1,49 @@
+<form class="example-form" [formGroup]="busForm" (ngSubmit)="AgregarBus()">
+    <mat-card>
+        <mat-card-title>{{ data.id ? 'Editar bus' : 'Registrar bus' }}</mat-card-title>
+    <mat-card-content>
+    
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Id</mat-label>
+      <input matInput placeholder="ID" formControlName="id" >
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Id Estado</mat-label>
+        <input matInput type="number" placeholder="Id Estado" formControlName="id_estado" step="1" pattern="[0-9]*">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Numero</mat-label>
+        <input matInput type="number" placeholder="Numero" formControlName="numero" step="1">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Placa</mat-label>
+        <textarea matInput placeholder="Placa" formControlName="placa" ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Modelo</mat-label>
+        <textarea matInput placeholder="Modelo" formControlName="modelo" ></textarea> 
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Capacidad</mat-label>
+        <input matInput type="number" placeholder="Capacidad" formControlName="capacidad" step="1">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Año</mat-label>
+        <input matInput type="number" placeholder="Año" formControlName="anio" step="1">
+    </mat-form-field>
+
+</mat-card-content>
+    <mat-card-footer>
+        <div class="example-button-row" style="margin: 2px">
+            <button mat-raised-button color="primary"  style="margin-right: 8px">Guardar</button>
+            <a (click)="CerrarFormulario()" mat-raised-button color="accent"  style="margin-right: 8px">Cerrrar</a>
+        </div>
+    </mat-card-footer>
+    </mat-card>
+</form>

@@ -1,0 +1,50 @@
+<mat-sidenav-container fullscreen [ngClass]="{'sombreado': sidenavAbierto}">
+    <mat-sidenav #sidenav mode="side">
+        <mat-toolbar color="primary">
+            <span>Menú</span>
+            <span class="spacer"></span>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a routerLink="./conductores"
+               mat-list-item
+               (click)="sidenav.toggle()">
+                <mat-icon mat-list-icon>perm_identity</mat-icon>
+                <span>Conductores</span>
+            </a>
+
+            <a routerLink="./buses"
+               mat-list-item
+               (click)="sidenav.toggle()">
+               <mat-icon>directions_bus</mat-icon>
+               <span>Buses</span>
+            </a>
+
+            <a routerLink="./rutas"
+               mat-list-item
+               (click)="sidenav.toggle()">
+               <mat-icon>map</mat-icon>
+               <span>Rutas</span>
+            </a>
+
+            <a routerLink="./paradas"
+               mat-list-item
+               (click)="sidenav.toggle()">
+               <mat-icon>place</mat-icon>
+                <span>Paradas</span>
+            </a>  
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-toolbar color="primary">
+        <button mat-icon-button
+                (click)="sidenav.toggle(); sidenavAbierto = !sidenavAbierto;">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <button mat-button (click)="logout()" style="background-color: black; color: white">
+            Log out
+        </button>        
+    </mat-toolbar>
+        <div (click)="sidenav.close(); sidenavAbierto = false;">
+            <router-outlet></router-outlet>
+        </div>
+</mat-sidenav-container>

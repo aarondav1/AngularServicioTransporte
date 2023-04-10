@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules//alertifyjs//build//css//themes/bootstrap.min.css';
+@import '../node_modules//alertifyjs//build//css//themes/default.min.css';
+
+body {
+    background: white;
+    background-attachment: scroll;
+  }
+
+html, body { 
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  }
+body { 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
