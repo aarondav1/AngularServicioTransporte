@@ -13,12 +13,12 @@ import * as alertify from 'alertifyjs'
 export class BusesFormularioComponent implements OnInit {
 
   constructor(private builder: FormBuilder, private dialog: MatDialog, 
-    private busService: BusService, @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private busService: BusService, @Inject(MAT_DIALOG_DATA) public data: {id: number}) { }
 
   editdata!: BusInterface;
 
   ngOnInit(): void {
-    if (this.data.id != '' && this.data.id != null) {
+    if (this.data.id != null) {
       this.busService.GetBusConRutasAsociadas(this.data.id).subscribe(response => {
         this.editdata = response;
         this.busForm.setValue({

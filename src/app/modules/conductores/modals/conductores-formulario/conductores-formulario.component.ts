@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConductorService } from '../../services/conductor.service'; 
 import * as alertify from 'alertifyjs'
+import { ConductorInterface } from '../../interfaces/conductor-interface';
+import { ConductorConBusInterface } from '../../interfaces/ConductorConBus-interface';
 
 @Component({
   selector: 'app-conductores-formulario',
@@ -11,19 +12,18 @@ import * as alertify from 'alertifyjs'
   styleUrls: ['./conductores-formulario.component.css']
 })
 export class ConductoresFormularioComponent implements OnInit {
-  editdata: any;
   constructor(private builder: FormBuilder, private dialog: MatDialog, private api: ConductorService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: {id: number}) { }
+
+  editdata!: ConductorConBusInterface;
 
   ngOnInit(): void {
-    //SI EL FORMULARIO RECIBE UN ID SIGNIFICA QUE ES SE QUIERE EDTIAR UN REGISTRO POR LO QUE
-    //SE RELLENAN LOS CAMPOS CON EL REGISTRO CUYO ID CONINCIDA CON EL ID INGRESADO.
-    if (this.data.id != '' && this.data.id != null) {
+    if (this.data.id != null) {
       this.api.GetConductor(this.data.id).subscribe(response => {
         this.editdata = response;
         this.conductorForm.setValue({
           id: this.editdata.id, id_estado: this.editdata.id_Estado, nombres: this.editdata.nombres,
-          apellidos: this.editdata.apellidos, cedula: this.editdata.cedula, id_tipo_licencia: this.editdata.id_Tipo_Licencia
+          apellidos: this.editdata.apellidos, cedula: this.editdata.cedula, id_tipo_licencia: String(this.editdata.id_Tipo_Licencia)
         });
       });
     }

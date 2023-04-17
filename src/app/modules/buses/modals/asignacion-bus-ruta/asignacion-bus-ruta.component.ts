@@ -10,6 +10,7 @@ import { AsignacionBusRutaService } from '../../services/asignacion-bus-ruta.ser
 import * as alertify from 'alertifyjs'
 import { BusService } from '../../services/bus.service';
 import { ModalAsignacionData } from '../../interfaces/modal-asignacion-data';
+import { AsignacionResponse } from 'src/app/shared/interfaces/asignacion-response';
 
 @Component({
   selector: 'app-asignacion-bus-ruta',
@@ -78,19 +79,18 @@ export class AsignacionBusRutaComponent implements OnInit {
   
   onAccept() {
     const selectedIds = this.selection.selected.map(row => row.id);
-    
-    if(this.data.modo == 'agregar'){
+    if (this.data.modo == 'agregar') {
       this.asignacionService.AgregarAsignacionesBusRuta(this.data.idBus, selectedIds).subscribe(
-        (response: any) => {
+        (response: AsignacionResponse) => {
           this.CargarRutasNoAsociadas();
           alertify.success(response.message);
+          //console.log(response);
         },
-        error => {
-          alertify.error(error);
+        (error: AsignacionResponse) => {
+          alertify.error(error.error);
         }
-      );      
+      );
     }
-
     else if(this.data.modo == 'eliminar'){
       this.asignacionService.EliminarAsignacionesBusRuta(this.data.idBus, selectedIds).subscribe(
         r => {
@@ -104,6 +104,21 @@ export class AsignacionBusRutaComponent implements OnInit {
     }
     this.dialog.closeAll();
   }
-    
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.finaldata.filter = filterValue.trim().toLowerCase();
+    if (this.finaldata.paginator) {
+      this.finaldata.paginator.firstPage();
+    }
+    const filterRuta = filterValue.trim().toLowerCase(); 
+    this.finaldata.filterPredicate = (data: RutaInterface, filter: string) => {
+      const ruta = data.nombre.trim().toLowerCase();
+      const filterRuta = filter.trim().toLowerCase();
+      return ruta.includes(filterRuta);
+    };
+    this.finaldata.filter = filterRuta;
+  }
+
   
 }

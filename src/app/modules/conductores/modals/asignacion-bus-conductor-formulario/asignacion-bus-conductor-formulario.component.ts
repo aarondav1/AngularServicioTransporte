@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AsignacionBusConductorCreacionInterface } from '../../interfaces/asignacion-bus-conductor-creacion';
 import { AsignacionBusConductorService } from '../../services/asignacion-bus-conductor.service';
@@ -14,7 +14,7 @@ export class AsignacionBusConductorFormularioComponent implements OnInit {
 
   constructor(private builder: FormBuilder, private dialog: MatDialog, 
     private asignacionService: AsignacionBusConductorService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: {id:number}) { }
 
   ngOnInit(): void {
   }
@@ -22,11 +22,11 @@ export class AsignacionBusConductorFormularioComponent implements OnInit {
     id: ['', [Validators.required, this.onlyNumbersValidator]]
   });
 
-  onlyNumbersValidator(control: AbstractControl): { [key: string]: any } | null {
+  onlyNumbersValidator(control: AbstractControl): ValidationErrors | null {
     const valid = /^\d+$/.test(control.value);
     return valid ? null : { 'notNumber': true };
   }
-
+  
   CrearAsignacionBusConductor(){
     const idBus = this.asignacionForm.controls['id'].value;
     const asignacion: AsignacionBusConductorCreacionInterface = {

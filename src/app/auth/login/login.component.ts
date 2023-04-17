@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import * as alertify from 'alertifyjs'
+import { Usuario } from '../interfaces/usuario';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +13,18 @@ import * as alertify from 'alertifyjs'
 })
 export class LoginComponent implements OnInit {
 
-  users: any[] = [];
+  users: Usuario[] = [];
   miFormulario: FormGroup = this.fb.group({
     email:    ['aaron-alvare@hotmail.com', [Validators.required, Validators.email]],
     password: ['12345', [Validators.required, Validators.minLength(5)]]
   });
 
-  constructor( private fb: FormBuilder, private router: Router, 
-    private authService: AuthService, private http: HttpClient) { 
-      this.http.get('../../../assets/users.json').subscribe((data: any) => {
-        this.users = data.users;
-      });
-    }
+  constructor(private fb: FormBuilder, private authService: AuthService,
+    private http: HttpClient) { 
+      this.http.get<{ users: Usuario[] }>('../../../assets/users.json').subscribe(response => {
+      this.users = response.users;
+    });
+  }
 
   ngOnInit(): void {
   }

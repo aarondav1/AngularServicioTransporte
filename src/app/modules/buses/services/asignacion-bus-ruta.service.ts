@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AsignacionResponse } from 'src/app/shared/interfaces/asignacion-response';
 import { environment } from 'src/environments/environment';
 import { AsignacionBusRutaCreacionInterface } from '../interfaces/asignacion-bus-ruta-creacion';
 
@@ -17,7 +18,7 @@ export class AsignacionBusRutaService {
     return this.http.post(this.apiurl, asignacionBusRutaCreacion, { responseType: 'text' });
   }
   
-  AgregarAsignacionesBusRuta(busId: number, rutasIds: number[]){
+  AgregarAsignacionesBusRuta(busId: number, rutasIds: number[]): Observable<AsignacionResponse>{
     const url = `${this.apiurl}/AgregarAsignacionesRutaBus/${busId}?Ids_Rutas=${rutasIds.join(',')}`;
     return this.http.post(url, {});
   }

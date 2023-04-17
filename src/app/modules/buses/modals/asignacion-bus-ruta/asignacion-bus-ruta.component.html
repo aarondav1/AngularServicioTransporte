@@ -3,6 +3,16 @@
     <mat-card-header>
         <mat-card-title>{{ data.modo === 'agregar' ? 'Seleccione la(s) ruta(s) a agregar' : 'Seleccione la(s) ruta(s) a eliminar' }}</mat-card-title>
     </mat-card-header>
+
+    <mat-toolbar class="mt-4">
+        <mat-toolbar-row>
+          <mat-form-field>
+            <input matInput placeholder="Nombre" (keyup)="applyFilter($event)" #input />
+              <mat-icon>search</mat-icon>
+          </mat-form-field>
+        </mat-toolbar-row>
+      </mat-toolbar>
+
     <table mat-table [dataSource]="finaldata" matSort class="mat-elevation-z8 table-sm">
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>

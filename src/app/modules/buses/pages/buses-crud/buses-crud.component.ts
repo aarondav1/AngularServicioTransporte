@@ -48,10 +48,11 @@ export class BusesCrudComponent implements OnInit {
     if (this.finaldata.paginator) {
       this.finaldata.paginator.firstPage();
     }
-    const filterPlaca = filterValue.trim().toLowerCase();
-    this.finaldata.filterPredicate = (data: { placa: string; }, filter: any) => {
+    const filterPlaca = filterValue.trim().toLowerCase(); 
+    this.finaldata.filterPredicate = (data: BusConRutasInterface, filter: string) => {
       const placa = data.placa.trim().toLowerCase();
-      return placa.includes(filter);
+      const filterPlaca = filter.trim().toLowerCase();
+      return placa.includes(filterPlaca);
     };
     this.finaldata.filter = filterPlaca;
   }

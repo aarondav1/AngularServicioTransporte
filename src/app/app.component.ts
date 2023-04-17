@@ -8,11 +8,10 @@ import { AuthService } from './auth/services/auth.service';
 })
 export class AppComponent {
   title = 'ServicioTransporte';
-  isLoggedIn = false;
   constructor(private authService: AuthService) { }
   ngOnInit() {
     const currentUser = localStorage.getItem('currentUser');
-    this.isLoggedIn = this.authService.isLoggedIn = currentUser !== null;
+    this.authService.isLoggedIn = currentUser !== null;
   }
 
 }

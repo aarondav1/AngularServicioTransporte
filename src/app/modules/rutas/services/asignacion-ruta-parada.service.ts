@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AsignacionResponse } from 'src/app/shared/interfaces/asignacion-response';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class AsignacionRutaParadaService {
   constructor(private http: HttpClient) { }
   apiurl = environment.apiUrl + '/AsignacionRutaParada';
   
-  AgregarAsignacionesRutaParada(rutaId: number, paradasIds: number[]){
+  AgregarAsignacionesRutaParada(rutaId: number, paradasIds: number[]): Observable<AsignacionResponse>{
     const url = `${this.apiurl}/AgregarAsignacionesRutaParada/${rutaId}?Ids_Paradas=${paradasIds.join(',')}`;
     return this.http.post(url, {});
   }

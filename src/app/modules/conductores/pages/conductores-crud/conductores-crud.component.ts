@@ -69,20 +69,7 @@ export class ConductoresCrudComponent implements OnInit {
     );
   }, function () {})
  }
-  BuscarConductores(idBusqueda: number){
-    this.api.GetConductor(idBusqueda!).subscribe(response => {
-      const conductor = response;
-      if (conductor) {
-        this.finaldata = new MatTableDataSource<ConductorConBusInterface>([conductor]);
-        this.finaldata.paginator=this._paginator;
-        this.finaldata.sort=this._sort;
-      } else {
-        alertify.error('No se encontró ningún conductor con el ID: ' + idBusqueda);
-      }
-    }, error => {
-      alertify.error('Error al buscar conductor. Intente nuevamente.');
-    });    
-  }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -91,9 +78,10 @@ export class ConductoresCrudComponent implements OnInit {
       this.finaldata.paginator.firstPage();
     }
     const filterCedula = filterValue.trim().toLowerCase();
-    this.finaldata.filterPredicate = (data: { cedula: string; }, filter: any) => {
+    this.finaldata.filterPredicate = (data: ConductorConBusInterface, filter: string) => {
       const cedula = data.cedula.trim().toLowerCase();
-      return cedula.includes(filter);
+      const filterCedula = filter.trim().toLowerCase();
+      return cedula.includes(filterCedula); 
     };
     this.finaldata.filter = filterCedula;
   }

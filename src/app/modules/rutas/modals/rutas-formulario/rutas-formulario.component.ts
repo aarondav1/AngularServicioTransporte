@@ -14,7 +14,7 @@ import { RutaConParadasInterface } from '../../interfaces/ruta-con-paradas-inter
 export class RutasFormularioComponent implements OnInit {
 
   constructor(private builder: FormBuilder, private dialog: MatDialog, 
-    private rutaService: RutaService, @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private rutaService: RutaService, @Inject(MAT_DIALOG_DATA) public data: {id: number}) { }
 
   editdata!: RutaConParadasInterface;
   rutaForm=this.builder.group({
@@ -26,14 +26,14 @@ export class RutasFormularioComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    if (this.data.id != '' && this.data.id != null) {
+    if (this.data.id != null) {
       this.rutaService.GetRuta(this.data.id).subscribe(response => {
         this.editdata = response;
         this.rutaForm.setValue({
           id: this.editdata.id, id_estado: this.editdata.id_Estado,
           nombre: this.editdata.nombre, origen: this.editdata.origen,
           destino: this.editdata.destino, 
-        }); //CAMBIAR GETRUTA POR GETRUTA BY ID
+        });
       });
     }
   }

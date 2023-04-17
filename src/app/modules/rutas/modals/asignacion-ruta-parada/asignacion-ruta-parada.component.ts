@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import * as alertify from 'alertifyjs'
 import { ParadaInterface } from 'src/app/modules/paradas/interfaces/parada-interface';
 import { ParadaService } from 'src/app/modules/paradas/services/parada.service';
+import { AsignacionResponse } from 'src/app/shared/interfaces/asignacion-response';
 import { ModalAsignacionRutaParadaData } from '../../interfaces/modal-asignacion-ruta-parada-data';
 import { AsignacionRutaParadaService } from '../../services/asignacion-ruta-parada.service';
 import { RutaService } from '../../services/ruta.service';
@@ -79,19 +80,17 @@ export class AsignacionRutaParadaComponent implements OnInit {
   
   onAccept() {
     const selectedIds = this.selection.selected.map(row => row.id);
-    
     if(this.data.modo == 'agregar'){
       this.asignacionService.AgregarAsignacionesRutaParada(this.data.idRuta, selectedIds).subscribe(
-        (response: any) => {
+        (response: AsignacionResponse) => {
           this.CargarParadasNoAsociadas();
           alertify.success(response.message);
         },
-        error => {
-          alertify.error(error);
+        (error: AsignacionResponse) => {
+          alertify.error(error.error);
         }
       );      
     }
-
     else if(this.data.modo == 'eliminar'){
       this.asignacionService.EliminarAsignacionesRutaParada(this.data.idRuta, selectedIds).subscribe(
         r => {
@@ -106,4 +105,19 @@ export class AsignacionRutaParadaComponent implements OnInit {
     this.dialog.closeAll();
   }
     
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.finaldata.filter = filterValue.trim().toLowerCase();
+    if (this.finaldata.paginator) {
+      this.finaldata.paginator.firstPage();
+    }
+    const filterParada = filterValue.trim().toLowerCase(); 
+    this.finaldata.filterPredicate = (data: ParadaInterface, filter: string) => {
+      const parada = data.direccion.trim().toLowerCase();
+      const filterParada = filter.trim().toLowerCase();
+      return parada.includes(filterParada);
+    };
+    this.finaldata.filter = filterParada;
+  }
+
 }
