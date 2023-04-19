@@ -19,6 +19,7 @@ export class ConductoresCrudComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private api: ConductorService,
     private asignacionServicio: AsignacionBusConductorService) { }
+    
   @ViewChild(MatPaginator) _paginator!:MatPaginator;
   @ViewChild(MatSort) _sort!:MatSort;
   conductordata!: ConductorConBusInterface[];
