@@ -13,10 +13,12 @@ import { ParadasModule } from './modules/paradas/paradas.module';
 import { RutasModule } from './modules/rutas/rutas.module';
 import { MaterialModule } from './shared/material/material.module';
 import { SharedModule } from './shared/shared.module';
+import { SidenavComponent } from './home/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

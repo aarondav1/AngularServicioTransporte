@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { SidenavComponent } from './shared/sidenav/sidenav.component';
+import { SidenavComponent } from './home/sidenav/sidenav.component';
 
 
 

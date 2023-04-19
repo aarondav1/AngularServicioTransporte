@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidenavComponent } from './sidenav/sidenav.component';
 import { MaterialModule } from './material/material.module';
-import { AppRoutingModule } from '../app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { SharedRoutingModuleModule } from './shared-routing-module.module';
 
 
 
 @NgModule({
   declarations: [
-    SidenavComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    DataTableComponent
   ],
   exports:[
-    SidenavComponent
+    DataTableComponent,
+    SharedRoutingModuleModule
   ],
   imports: [
     CommonModule,
-    MaterialModule,
-    AppRoutingModule
+    MaterialModule
   ]
 })
 export class SharedModule { }
