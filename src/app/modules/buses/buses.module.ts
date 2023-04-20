@@ -7,6 +7,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BusesRoutingModule } from './buses-routing.module';
 import { AsignacionBusRutaComponent } from './modals/asignacion-bus-ruta/asignacion-bus-ruta.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -25,7 +26,8 @@ import { AsignacionBusRutaComponent } from './modals/asignacion-bus-ruta/asignac
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    BusesRoutingModule
+    BusesRoutingModule,
+    SharedModule
   ]
 })
 export class BusesModule { }

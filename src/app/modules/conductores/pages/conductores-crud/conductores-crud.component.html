@@ -88,4 +88,11 @@
       aria-label="Select page of periodic elements" class="pagination-style">
   </mat-paginator>
 </div> -->
-<app-data-table [displayColums]="displayColums" [finaldata]="finaldata"></app-data-table>
+<app-data-table 
+      [displayColumns]="displayColumns"
+      [headerColumns]="headerColumns"
+      [headerComponent]="headerComponent"
+      [finaldata]="finaldata" 
+      [buttons]="botones"
+      (buttonClicked)="onButtonClicked($event)"
+></app-data-table>

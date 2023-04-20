@@ -1,4 +1,4 @@
-<div class="mt-4 mat-elevation-z8 table-container table-responsive">
+<!-- <div class="mt-4 mat-elevation-z8 table-container table-responsive">
   <mat-card-header>
     <mat-card-title>Buses</mat-card-title>
   </mat-card-header>
@@ -75,4 +75,13 @@
       showFirstLastButtons 
       aria-label="Select page of periodic elements" class="pagination-style">
     </mat-paginator>
-</div>
+</div> -->
+
+<app-data-table 
+      [displayColumns]="displayColumns"
+      [headerColumns]="headerColumns"
+      [headerComponent]="headerComponent"
+      [finaldata]="finaldata" 
+      [buttons]="botones"
+      (buttonClicked)="onButtonClicked($event)"
+></app-data-table>
