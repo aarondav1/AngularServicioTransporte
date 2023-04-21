@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+
 import { ConductorService } from '../../services/conductor.service';
 import { ConductoresFormularioComponent } from '../../modals/conductores-formulario/conductores-formulario.component';
 import * as alertify from 'alertifyjs'
 import { ConductorConBusInterface } from '../../interfaces/ConductorConBus-interface';
 import { AsignacionBusConductorService } from '../../services/asignacion-bus-conductor.service';
 import { AsignacionBusConductorFormularioComponent } from '../../modals/asignacion-bus-conductor-formulario/asignacion-bus-conductor-formulario.component';
+
 import { DataInterface } from 'src/app/shared/interfaces/types';
 import { BotonTabla } from 'src/app/shared/interfaces/boton-tabla';
 import { ButtonClickData } from 'src/app/shared/interfaces/button-click-data';
@@ -23,18 +23,15 @@ export class ConductoresCrudComponent implements OnInit {
   constructor(private dialog: MatDialog, private api: ConductorService,
     private asignacionServicio: AsignacionBusConductorService) { }
     
-  @ViewChild(MatPaginator) _paginator!:MatPaginator;
-  @ViewChild(MatSort) _sort!:MatSort;
+  // @ViewChild(MatPaginator) _paginator!:MatPaginator;
+  // @ViewChild(MatSort) _sort!:MatSort;
   headerComponent: string = "Conductores";
   conductordata!: ConductorConBusInterface[];
   finaldata!: MatTableDataSource<DataInterface>;
   displayColumns: string[] = ["id", "nombres", "apellidos", "cedula", "id_Tipo_Licencia", "placa_Bus", "action"]
   headerColumns: string[] = ["ID", "Nombres", "Apellidos", "Cedula", "Licencia", "Placa Bus", "Acciones"]
-  idBusqueda?: number;
-  isBusquedaVacia = true;
 
   botones: BotonTabla[] = [
-    // { nombre: 'Agregar', accion: 'agregar' },
     { nombre: 'Editar', accion: 'editar', color: "primary", visible: () => true },
     { nombre: 'Eliminar', accion: 'eliminar', color: "accent", visible: () => true },
     {
@@ -69,7 +66,7 @@ export class ConductoresCrudComponent implements OnInit {
     this.CargarConductores();
   }
 
-  onButtonClicked(argumento: ButtonClickData) {
+  onButtonTableClicked(argumento: ButtonClickData) {
     switch (argumento.buttonInfo.accion) {
       case 'editar':
         this.EditarConductor(argumento.id);
@@ -84,9 +81,29 @@ export class ConductoresCrudComponent implements OnInit {
         this.EliminarBus(argumento.id)
         break;
       default:
-        // Acción por defecto si no se reconoce la acción del botón
         break;
     }
+  }
+
+  onButtonAddClick(){
+    this.AbrirFormularioConductor();
+  }
+
+  applyFilter(filterValue: string) {
+    this.finaldata.filter = filterValue.trim().toLowerCase();
+    if (this.finaldata.paginator) {
+      this.finaldata.paginator.firstPage();
+    }
+    const filterCedula = filterValue.trim().toLowerCase();
+    this.finaldata.filterPredicate = (data: DataInterface, filter: string) => {
+      if ('cedula' in data) {
+        const cedula = data.cedula.trim().toLowerCase();
+        const filterCedula = filter.trim().toLowerCase();
+        return cedula.includes(filterCedula);
+      }
+      return false;
+    };
+    this.finaldata.filter = filterCedula;
   }
 
   AbrirFormularioConductor(id?: number) {
@@ -105,8 +122,8 @@ export class ConductoresCrudComponent implements OnInit {
     this.api.ListarConductores().subscribe(response => {
       this.conductordata = response;
       this.finaldata=new MatTableDataSource<DataInterface>(this.conductordata);
-      this.finaldata.paginator=this._paginator;
-      this.finaldata.sort=this._sort;
+      // this.finaldata.paginator=this._paginator;
+      // this.finaldata.sort=this._sort;
     });
   }
 
@@ -122,31 +139,11 @@ export class ConductoresCrudComponent implements OnInit {
         alertify.success(r);
       },
       error => {
-        alertify.error(error.error); // Mostrar el mensaje de error devuelto por la API utilizando Alertify
+        alertify.error(error.error);
       }
     );
   }, function () {})
  }
-
-
-  applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.finaldata.filter = filterValue.trim().toLowerCase();
-  if (this.finaldata.paginator) {
-    this.finaldata.paginator.firstPage();
-  }
-  const filterCedula = filterValue.trim().toLowerCase();
-  this.finaldata.filterPredicate = (data: DataInterface, filter: string) => {
-    if ('cedula' in data) {
-      const cedula = data.cedula.trim().toLowerCase();
-      const filterCedula = filter.trim().toLowerCase();
-      return cedula.includes(filterCedula);
-    }
-    return false;
-  };
-  this.finaldata.filter = filterCedula;
-  }
-
 
   EliminarBus(idConductor: number){
     alertify.confirm("Eliminar bus", "Seguro que quiere eliminar la asociacion a este bus?", () => {

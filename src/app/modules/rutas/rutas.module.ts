@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { RutasRoutingModule } from './rutas-routing.module';
 import { AsignacionRutaParadaComponent } from './modals/asignacion-ruta-parada/asignacion-ruta-parada.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -25,6 +26,7 @@ import { AsignacionRutaParadaComponent } from './modals/asignacion-ruta-parada/a
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule,
     RutasRoutingModule
   ]
 })

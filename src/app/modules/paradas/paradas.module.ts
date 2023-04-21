@@ -6,6 +6,7 @@ import { ParadasFormularioComponent } from './pages/paradas-formulario/paradas-f
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParadasRoutingModule } from './paradas-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -23,7 +24,8 @@ import { ParadasRoutingModule } from './paradas-routing.module';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    ParadasRoutingModule
+    ParadasRoutingModule,
+    SharedModule
   ]
 })
 export class ParadasModule { }

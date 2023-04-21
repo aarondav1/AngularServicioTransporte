@@ -94,5 +94,7 @@
       [headerComponent]="headerComponent"
       [finaldata]="finaldata" 
       [buttons]="botones"
-      (buttonClicked)="onButtonClicked($event)"
+      (buttonClicked)="onButtonTableClicked($event)"
+      (addButtonClick)="onButtonAddClick()"
+      (filterChanged)="applyFilter($event)"
 ></app-data-table>

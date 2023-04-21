@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges, S
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ConductorConBusInterface } from 'src/app/modules/conductores/interfaces/ConductorConBus-interface';
 import { BotonTabla } from '../../interfaces/boton-tabla';
 import { ButtonClickData } from '../../interfaces/button-click-data';
 import { DataInterface } from '../../interfaces/types';
@@ -18,8 +17,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() finaldata!: MatTableDataSource<DataInterface>;
   @Input() buttons: BotonTabla[] = [];
   @Input() headerComponent: string = "";
+
   @Output() buttonClicked: EventEmitter<ButtonClickData> = new EventEmitter();
-  
+  @Output() addButtonClick: EventEmitter<void> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<string> = new EventEmitter<string>();
+
   @ViewChild(MatPaginator) _paginator!:MatPaginator;
   @ViewChild(MatSort) _sort!:MatSort;
   myfinaldata!: MatTableDataSource<DataInterface>;
@@ -47,8 +49,16 @@ export class DataTableComponent implements OnInit, OnChanges {
       id: rowId,
       buttonInfo: buttonInfo
     };
-    //console.log('click');
     this.buttonClicked.emit(data);
   }
 
+  onFilterInput(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    // this.myfinaldata.filter = filterValue;
+    // if (this.myfinaldata.paginator) {
+    //   this.myfinaldata.paginator.firstPage();
+    // }
+    // console.log(filterValue);
+    this.filterChanged.emit(filterValue);
+  }
 }

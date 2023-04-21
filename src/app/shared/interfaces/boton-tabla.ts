@@ -6,4 +6,3 @@ export interface BotonTabla {
     color: string;
     visible: (element?: DataInterface) => boolean;
   }
-  
